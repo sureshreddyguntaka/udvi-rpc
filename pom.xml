@@ -4,12 +4,54 @@
 	<groupId>io.udvi.rpc</groupId>
 	<artifactId>udvi-rpc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<modules>
+		<module>common</module>
+		<module>server</module>
+		<module>exmaple</module>
+	</modules>
 	<name>UDVI RPC Server</name>
-	<dependencies>
-        <dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.0.10.Final</version>
-		</dependency>
-	</dependencies>
+	<packaging>pom</packaging>
+	<properties>
+		<jackson.version>2.4.4</jackson.version>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.udvi.rpc</groupId>
+				<artifactId>common</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<!--<version>4.0.26.Final</version>-->
+				<version>5.0.0.Alpha3-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.esotericsoftware</groupId>
+				<artifactId>kryo-shaded</artifactId>
+				<version>3.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>de.javakaffee</groupId>
+				<artifactId>kryo-serializers</artifactId>
+				<version>0.28</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.typesafe</groupId>
+				<artifactId>config</artifactId>
+				<version>1.2.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
