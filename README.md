@@ -1,2 +1,2 @@
 # udvi-rpc
-UDVI RPC Server based on Netty 4.1
+UDVI RPC Server based on Netty 5.0
