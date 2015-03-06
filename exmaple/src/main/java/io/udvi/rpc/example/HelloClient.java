@@ -27,11 +27,16 @@ public class HelloClient {
 			 public void run() {
 				 
 					IHelloWordObj client = RPCClient.createObjectProxy(host, port, IHelloWordObj.class);
+				 	IHelloWordObj client1 = RPCClient.createObjectProxy(host, port, IHelloWordObj.class);
 					long start = System.currentTimeMillis();
 					for (int i = 0; i < requestNum; i++) {
 						String result = client.hello("hello world!" + i);
-						if (!result.equals("hello world!" + i))
-							System.out.print("error=" + result);
+						String result1 = client1.hello("hello world!" + i);
+						if (!result.equals("hello world!" + i)){
+							System.out.println("error=" + result);
+							System.out.println("error1=" + result1);
+						}
+
 					}
 					totalTimeCosted.addAndGet(System.currentTimeMillis() - start);
 				}

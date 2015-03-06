@@ -22,13 +22,13 @@ public class AsyncHelloClient {
          int threadNum = 1;
          final int requestNum = 100000;
          Thread[] threads = new Thread[threadNum];
-         
+		final IAsyncObjectProxy client = RPCClient.createAsyncObjPrx(host, port, IHelloWordObj.class);
          for(int i =0;i< threadNum;i++){	
         	 threads[i] = new Thread(new Runnable(){
 			 @Override
 			 public void run() {
 
-				 	 IAsyncObjectProxy client = RPCClient.createAsyncObjPrx(host, port, IHelloWordObj.class);
+
 					 long start = System.currentTimeMillis();
 					 for(int i=0;i<requestNum;i++){
 					 	RPCFuture result = client.call("hello", new Object[]{"hello world!"+i}, new AsyncHelloWorldCallback("hello world!"+i));
@@ -44,11 +44,11 @@ public class AsyncHelloClient {
 
          System.out.println("total time costed:"+totalTimeCosted.get()+"|req/s="+requestNum*threadNum/(double)(totalTimeCosted.get()/1000));
 
-		 IAsyncObjectProxy client = RPCClient.createAsyncObjPrx(host, port, IHelloWordObj.class);
+		 IAsyncObjectProxy client1 = RPCClient.createAsyncObjPrx(host, port, IHelloWordObj.class);
 	
 		 
-		 RPCFuture helloFuture = client.call("hello", new Object[]{"hello world!"});
-		 RPCFuture testFuture = client.call("test", new Object[]{1,"hello world!",2L});
+		 RPCFuture helloFuture = client1.call("hello", new Object[]{"hello world!"}, new AsyncHelloWorldCallback("hello world!"));
+		 RPCFuture testFuture = client1.call("test", new Object[]{1,"hello world!",2L},new AsyncHelloWorldCallback("1hello world!2"));
 		 
 		 System.out.println(helloFuture.get(3000, TimeUnit.MILLISECONDS));
 		 System.out.println(testFuture.get(3000, TimeUnit.MILLISECONDS));
