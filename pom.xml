@@ -13,6 +13,7 @@
 	<packaging>pom</packaging>
 	<properties>
 		<jackson.version>2.4.4</jackson.version>
+		<springframework.version>4.2.0.BUILD-SNAPSHOT</springframework.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -26,6 +27,11 @@
 				<artifactId>netty-all</artifactId>
 				<!--<version>4.0.26.Final</version>-->
 				<version>5.0.0.Alpha3-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${springframework.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>

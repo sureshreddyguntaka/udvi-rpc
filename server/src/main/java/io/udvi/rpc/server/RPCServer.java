@@ -19,7 +19,9 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import io.udvi.rpc.common.proxy.BaseObjectProxy;
 import io.udvi.rpc.common.util.UdviExecutorService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RPCServer {
 
     private static Config conf = ConfigFactory.load();
