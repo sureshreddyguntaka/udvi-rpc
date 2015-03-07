@@ -1,8 +1,10 @@
 package io.udvi.rpc.example.obj;
 
+import io.udvi.rpc.common.annotation.Remote;
 import org.springframework.stereotype.Component;
 
 @Component
+@Remote
 public class HelloWorldObj implements IHelloWordObj {
 
 	@Override

@@ -7,8 +7,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -17,8 +19,10 @@ import java.util.concurrent.TimeUnit;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import io.udvi.rpc.common.annotation.Remote;
 import io.udvi.rpc.common.proxy.BaseObjectProxy;
 import io.udvi.rpc.common.util.UdviExecutorService;
+import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -64,14 +68,20 @@ public class RPCServer {
     @Autowired
     public RPCServer(ApplicationContext applicationContext) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         this.applicationContext = applicationContext;
-        List<String> objClassList = RPCServer.getConfig().getStringList("server.objects");
-        for( String objClass :objClassList){
+        List<String> objClassStrList = RPCServer.getConfig().getStringList("server.objects");
+        List<Class<?>> objClassList = new ArrayList<Class<?>>();
+        for(String str : objClassStrList){
+            objClassList.add(Class.forName(str));
+        }
+        Reflections reflections = new Reflections();
+        Set<Class<?>> classes =  reflections.getTypesAnnotatedWith(Remote.class);
+        classes.addAll(objClassList);
+        for( Class<?> objClass :classes){
             Object obj = null;
             if(this.applicationContext!=null){
-                Class classType = Class.forName(objClass);
-                obj = applicationContext.getBean(classType);
+                obj = applicationContext.getBean(objClass);
             }else{
-                obj = RPCServer.class.forName(objClass).newInstance();
+                obj = RPCServer.class.forName(objClass.getCanonicalName()).newInstance();
             }
             Class[] interfaces= obj.getClass().getInterfaces();
             for(int i =0;i<interfaces.length;i++){
