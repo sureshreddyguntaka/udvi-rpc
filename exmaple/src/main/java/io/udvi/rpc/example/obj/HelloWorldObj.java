@@ -1,5 +1,8 @@
 package io.udvi.rpc.example.obj;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class HelloWorldObj implements IHelloWordObj {
 
 	@Override

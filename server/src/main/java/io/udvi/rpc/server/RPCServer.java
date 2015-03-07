@@ -19,10 +19,15 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import io.udvi.rpc.common.proxy.BaseObjectProxy;
 import io.udvi.rpc.common.util.UdviExecutorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RPCServer {
+
+
+    private final ApplicationContext applicationContext;
 
     private static Config conf = ConfigFactory.load();
 
@@ -52,12 +57,22 @@ public class RPCServer {
         threadPool.submit(task);
     }
 
-
     public RPCServer() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        this(null);
+    }
 
+    @Autowired
+    public RPCServer(ApplicationContext applicationContext) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        this.applicationContext = applicationContext;
         List<String> objClassList = RPCServer.getConfig().getStringList("server.objects");
         for( String objClass :objClassList){
-            Object obj = RPCServer.class.forName(objClass).newInstance();
+            Object obj = null;
+            if(this.applicationContext!=null){
+                Class classType = Class.forName(objClass);
+                obj = applicationContext.getBean(classType);
+            }else{
+                obj = RPCServer.class.forName(objClass).newInstance();
+            }
             Class[] interfaces= obj.getClass().getInterfaces();
             for(int i =0;i<interfaces.length;i++){
                 objects.put(interfaces[i].getSimpleName(), obj);
@@ -90,7 +105,7 @@ public class RPCServer {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        new RPCServer().run();
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 }

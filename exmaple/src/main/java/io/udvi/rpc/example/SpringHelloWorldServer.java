@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Configuration;
  * Created by sureshreddyguntaka on 07/03/15.
  */
 @Configuration
-@ComponentScan(basePackages = {"io.udvi.rpc.server"})
+@ComponentScan(basePackages = {
+        "io.udvi.rpc.server",
+        "io.udvi.rpc.example.obj"
+    })
 public class SpringHelloWorldServer {
     public static void main(String[] args) {
         ApplicationContext context =
