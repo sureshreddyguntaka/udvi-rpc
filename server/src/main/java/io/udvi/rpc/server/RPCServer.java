@@ -76,7 +76,6 @@ public class RPCServer {
             Class[] interfaces= obj.getClass().getInterfaces();
             for(int i =0;i<interfaces.length;i++){
                 objects.put(interfaces[i].getSimpleName(), obj);
-                System.out.println("objName="+interfaces[i].getSimpleName());
             }
         }
     }
@@ -103,9 +102,5 @@ public class RPCServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 }

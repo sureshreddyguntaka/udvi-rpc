@@ -41,10 +41,9 @@ public class AsyncHelloClient {
          
          for(int i=0; i<threads.length;i++)
         	 threads[i].join();
-
          System.out.println("total time costed:"+totalTimeCosted.get()+"|req/s="+requestNum*threadNum/(double)(totalTimeCosted.get()/1000));
-
-		 IAsyncObjectProxy client1 = RPCClient.createAsyncObjPrx(host, port, IHelloWordObj.class);
+		Thread.sleep(5000);
+		 IAsyncObjectProxy client1 = RPCClient.createAsyncObjPrx(host, 9090, IHelloWordObj.class);
 	
 		 
 		 RPCFuture helloFuture = client1.call("hello", new Object[]{"hello world!"}, new AsyncHelloWorldCallback("hello world!"));
