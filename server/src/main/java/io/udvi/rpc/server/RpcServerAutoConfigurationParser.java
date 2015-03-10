@@ -1,14 +1,11 @@
 package io.udvi.rpc.server;
 
-import io.udvi.rpc.common.client.RPCClient;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.context.ApplicationContext;
+
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportAware;
+import org.springframework.core.type.AnnotationMetadata;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sureshreddyguntaka on 10/03/15.
@@ -19,7 +16,11 @@ import java.util.List;
         "io.udvi.rpc.server",
 
 })
-public class UdviRpcServerSpringConfig {
+public class RpcServerAutoConfigurationParser implements ImportAware{
 
 
+        @Override
+        public void setImportMetadata(AnnotationMetadata annotationMetadata) {
+
+        }
 }
