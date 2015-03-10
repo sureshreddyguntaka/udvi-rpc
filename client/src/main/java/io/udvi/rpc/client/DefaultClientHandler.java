@@ -1,20 +1,18 @@
-package io.udvi.rpc.common.client;
+package io.udvi.rpc.client;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.udvi.rpc.client.proxy.AsyncRPCCallback;
+import io.udvi.rpc.client.proxy.BaseObjectProxy;
+import io.udvi.rpc.common.RPCContext;
+import io.udvi.rpc.common.RPCType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.SocketAddress;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-
-import io.udvi.rpc.common.RPCContext;
-import io.udvi.rpc.common.proxy.AsyncRPCCallback;
-import io.udvi.rpc.common.proxy.BaseObjectProxy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 
 
 public class DefaultClientHandler extends SimpleChannelInboundHandler<RPCContext>{
@@ -92,12 +90,18 @@ public class DefaultClientHandler extends SimpleChannelInboundHandler<RPCContext
 	
 	
 	public RPCFuture doRPC(RPCContext rpcCtx, AsyncRPCCallback callback){
-		RPCFuture rpcFuture = new RPCFuture(rpcCtx, this, callback);
-		pendingRPC.put(rpcCtx.getRequest().getSeqNum(), rpcFuture);
-		channel.writeAndFlush(rpcCtx);
-		return rpcFuture;
+		if(rpcCtx.getRequest().getType() == RPCType.ONEWAY){
+			channel.writeAndFlush(rpcCtx);
+			return null;
+		} else {
+			RPCFuture rpcFuture = new RPCFuture(rpcCtx, this, callback);
+			pendingRPC.put(rpcCtx.getRequest().getSeqNum(), rpcFuture);
+			channel.writeAndFlush(rpcCtx);
+			return rpcFuture;
+		}
+
 	}
-	
+
 	public void doNotify(RPCContext rpcCtx){
 		channel.writeAndFlush(rpcCtx);
 	}

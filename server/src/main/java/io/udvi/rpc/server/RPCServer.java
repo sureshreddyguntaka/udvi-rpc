@@ -7,10 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -19,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import io.udvi.rpc.common.RPCContext;
 import io.udvi.rpc.common.annotation.Remote;
-import io.udvi.rpc.common.proxy.BaseObjectProxy;
 import io.udvi.rpc.common.util.UdviExecutorService;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +46,7 @@ public class RPCServer {
 
     public static void submit(Runnable task){
         if(threadPool == null){
-            synchronized (BaseObjectProxy.class) {
+            synchronized (RPCContext.class) {
                 if(threadPool==null){
                     LinkedBlockingDeque<Runnable> linkedBlockingDeque = new LinkedBlockingDeque<Runnable>();
                     ThreadPoolExecutor executor = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 600L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
@@ -74,7 +71,11 @@ public class RPCServer {
             objClassList.add(Class.forName(str));
         }
         Reflections reflections = new Reflections();
-        Set<Class<?>> classes =  reflections.getTypesAnnotatedWith(Remote.class);
+        Set<Class<?>> classes = new HashSet<Class<?>>();
+        Set<Class<?>> remoteInterfaces =  reflections.getTypesAnnotatedWith(Remote.class);
+        for(Class<?> remoteInterface : remoteInterfaces){
+            classes.addAll(reflections.getSubTypesOf(remoteInterface));
+        }
         classes.addAll(objClassList);
         for( Class<?> objClass :classes){
             Object obj = null;

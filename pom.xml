@@ -8,6 +8,7 @@
 		<module>common</module>
 		<module>server</module>
 		<module>exmaple</module>
+		<module>client</module>
 	</modules>
 	<name>UDVI RPC Server</name>
 	<packaging>pom</packaging>
@@ -20,6 +21,11 @@
 			<dependency>
 				<groupId>io.udvi.rpc</groupId>
 				<artifactId>common</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.udvi.rpc</groupId>
+				<artifactId>client</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>

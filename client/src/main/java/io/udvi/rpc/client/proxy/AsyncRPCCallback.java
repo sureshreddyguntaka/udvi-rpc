@@ -1,4 +1,4 @@
-package io.udvi.rpc.common.proxy;
+package io.udvi.rpc.client.proxy;
 
 public interface AsyncRPCCallback {
 

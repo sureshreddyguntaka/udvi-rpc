@@ -1,7 +1,14 @@
-package io.udvi.rpc.common.client;
+package io.udvi.rpc.client;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigObject;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.udvi.rpc.client.proxy.BaseObjectProxy;
+import io.udvi.rpc.client.proxy.IAsyncObjectProxy;
+import io.udvi.rpc.client.proxy.ObjectProxy;
+import io.udvi.rpc.common.util.UdviExecutorService;
 
 import java.lang.reflect.Proxy;
 import java.net.InetSocketAddress;
@@ -11,14 +18,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigObject;
-import io.udvi.rpc.common.proxy.BaseObjectProxy;
-import io.udvi.rpc.common.proxy.IAsyncObjectProxy;
-import io.udvi.rpc.common.proxy.ObjectProxy;
-import io.udvi.rpc.common.util.UdviExecutorService;
 
 public class RPCClient {
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-import io.udvi.rpc.common.client.RPCClient;
+import io.udvi.rpc.client.RPCClient;
 import io.udvi.rpc.example.obj.IHelloWordObj;
 
 public class HelloClient {

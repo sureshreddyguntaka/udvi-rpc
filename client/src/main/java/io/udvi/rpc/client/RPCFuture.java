@@ -1,16 +1,16 @@
-package io.udvi.rpc.common.client;
+package io.udvi.rpc.client;
+
+import io.udvi.rpc.client.proxy.AsyncRPCCallback;
+import io.udvi.rpc.common.RPCContext;
+import io.udvi.rpc.common.RPCStatus;
+import io.udvi.rpc.common.RPCType;
+import io.udvi.rpc.common.Response;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
-
-import io.udvi.rpc.common.RPCContext;
-import io.udvi.rpc.common.RPCStatus;
-import io.udvi.rpc.common.RPCType;
-import io.udvi.rpc.common.Response;
-import io.udvi.rpc.common.proxy.AsyncRPCCallback;
 
 
 public class RPCFuture implements Future<Object>{

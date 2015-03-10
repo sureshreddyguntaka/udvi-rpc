@@ -1,9 +1,9 @@
 package io.udvi.rpc.example;
 
-import io.udvi.rpc.common.client.RPCClient;
-import io.udvi.rpc.common.client.RPCFuture;
-import io.udvi.rpc.common.proxy.AsyncRPCCallback;
-import io.udvi.rpc.common.proxy.IAsyncObjectProxy;
+
+import io.udvi.rpc.client.RPCClient;
+import io.udvi.rpc.client.proxy.AsyncRPCCallback;
+import io.udvi.rpc.client.proxy.IAsyncObjectProxy;
 import io.udvi.rpc.example.async.AsyncHelloWorldCallback;
 import io.udvi.rpc.example.obj.IHelloWordObj;
 

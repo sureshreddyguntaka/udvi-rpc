@@ -18,6 +18,11 @@
             <version>${pom.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.udvi.rpc</groupId>
+            <artifactId>client</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>

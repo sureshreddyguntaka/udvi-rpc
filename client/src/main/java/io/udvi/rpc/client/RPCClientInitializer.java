@@ -1,12 +1,11 @@
-package io.udvi.rpc.common.client;
+package io.udvi.rpc.client;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-
+import io.udvi.rpc.client.proxy.BaseObjectProxy;
 import io.udvi.rpc.common.codec.UdviRpcDecoder;
 import io.udvi.rpc.common.codec.UdviRpcEncoder;
-import io.udvi.rpc.common.proxy.BaseObjectProxy;
 
 public class RPCClientInitializer extends ChannelInitializer<SocketChannel> {
 

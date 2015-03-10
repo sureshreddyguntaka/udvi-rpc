@@ -1,7 +1,7 @@
-package io.udvi.rpc.common.proxy;
+package io.udvi.rpc.client.proxy;
 
 
-import io.udvi.rpc.common.client.RPCFuture;
+import io.udvi.rpc.client.RPCFuture;
 
 public interface IAsyncObjectProxy {
 	public RPCFuture call(String funcName, Object[] args, AsyncRPCCallback callback);

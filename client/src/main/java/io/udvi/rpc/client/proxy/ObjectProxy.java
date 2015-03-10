@@ -1,15 +1,15 @@
-package io.udvi.rpc.common.proxy;
+package io.udvi.rpc.client.proxy;
+
+import io.udvi.rpc.client.DefaultClientHandler;
+import io.udvi.rpc.client.RPCFuture;
+import io.udvi.rpc.common.RPCContext;
+import io.udvi.rpc.common.RPCType;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
-import io.udvi.rpc.common.RPCContext;
-import io.udvi.rpc.common.RPCType;
-import io.udvi.rpc.common.client.DefaultClientHandler;
-import io.udvi.rpc.common.client.RPCFuture;
 
 public class ObjectProxy<T> extends BaseObjectProxy<T> implements InvocationHandler,IAsyncObjectProxy {
 
@@ -36,11 +36,22 @@ public class ObjectProxy<T> extends BaseObjectProxy<T> implements InvocationHand
 		   }
 
 		   DefaultClientHandler handler = chooseHandler();
-		   long seqNum = handler.getNextSequentNumber();
-		   RPCContext rpcCtx = createRequest(method.getName(), args, seqNum, RPCType.NORMAL);
+			long seqNum = handler.getNextSequentNumber();
+			RPCContext rpcCtx = null;
+			if(method.getReturnType()!=void.class){
+				rpcCtx = createRequest(method.getName(), args, seqNum, RPCType.NORMAL);
+			}else{
+				rpcCtx = createRequest(method.getName(), args, seqNum, RPCType.ONEWAY);
+			}
 
-		   RPCFuture rpcFuture = handler.doRPC(rpcCtx);
-		   return rpcFuture.get(3000, TimeUnit.MILLISECONDS);
+
+		   	RPCFuture rpcFuture = handler.doRPC(rpcCtx);
+			if(method.getReturnType() !=void.class){
+				return rpcFuture.get(3000, TimeUnit.MILLISECONDS);
+			} else {
+				return null;
+			}
+
 	}
 
 

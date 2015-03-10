@@ -1,8 +1,8 @@
 package io.udvi.rpc.example.async;
 
-import io.udvi.rpc.common.client.RPCClient;
-import io.udvi.rpc.common.client.RPCFuture;
-import io.udvi.rpc.common.proxy.IAsyncObjectProxy;
+import io.udvi.rpc.client.RPCClient;
+import io.udvi.rpc.client.RPCFuture;
+import io.udvi.rpc.client.proxy.IAsyncObjectProxy;
 import io.udvi.rpc.example.obj.IHelloWordObj;
 
 import java.util.concurrent.TimeUnit;

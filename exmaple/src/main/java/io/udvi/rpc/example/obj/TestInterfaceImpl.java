@@ -4,7 +4,6 @@ import io.udvi.rpc.common.annotation.Remote;
 import org.springframework.stereotype.Component;
 
 @Component
-@Remote
 public class TestInterfaceImpl implements TestInterface {
 
 
@@ -14,7 +13,14 @@ public class TestInterfaceImpl implements TestInterface {
 		return test;
 	}
 
+	@Override
 	public String methodWithOutParams(){
+		System.out.println("This is great");
 		return "This is great";
+	}
+
+	@Override
+	public void methodWithOurReturnAndParams(){
+		System.out.println("This is even great");
 	}
 }

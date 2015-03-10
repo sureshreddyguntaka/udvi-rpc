@@ -1,10 +1,19 @@
-package io.udvi.rpc.common.proxy;
+package io.udvi.rpc.client.proxy;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.udvi.rpc.client.DefaultClientHandler;
+import io.udvi.rpc.client.RPCClient;
+import io.udvi.rpc.client.RPCClientInitializer;
+import io.udvi.rpc.common.RPCContext;
+import io.udvi.rpc.common.RPCType;
+import io.udvi.rpc.common.Request;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
@@ -13,16 +22,6 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import io.udvi.rpc.common.RPCContext;
-import io.udvi.rpc.common.RPCType;
-import io.udvi.rpc.common.Request;
-import io.udvi.rpc.common.client.DefaultClientHandler;
-import io.udvi.rpc.common.client.RPCClient;
-import io.udvi.rpc.common.client.RPCClientInitializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 
 public class BaseObjectProxy<T> {

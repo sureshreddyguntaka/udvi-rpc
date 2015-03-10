@@ -1,7 +1,7 @@
 package io.udvi.rpc.example.async;
 
 
-import io.udvi.rpc.common.proxy.AsyncRPCCallback;
+import io.udvi.rpc.client.proxy.AsyncRPCCallback;
 
 public class AsyncHelloWorldCallback implements AsyncRPCCallback {
 

@@ -1,5 +1,9 @@
 package io.udvi.rpc.example.obj;
 
+import io.udvi.rpc.common.annotation.Remote;
+
+
+@Remote
 public interface IHelloWordObj {
 	
 	String hello(String msg);
