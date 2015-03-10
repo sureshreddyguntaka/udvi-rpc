@@ -59,18 +59,21 @@ public class RPCServer {
     }
 
     public RPCServer() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        this(null);
+        this(null,new Reflections());
     }
 
-    @Autowired
-    public RPCServer(ApplicationContext applicationContext) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    @Autowired(required = false)
+    public RPCServer(ApplicationContext applicationContext, Reflections reflections) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        if(reflections == null){
+            reflections = new Reflections();
+        }
         this.applicationContext = applicationContext;
         List<String> objClassStrList = RPCServer.getConfig().getStringList("server.objects");
         List<Class<?>> objClassList = new ArrayList<Class<?>>();
         for(String str : objClassStrList){
             objClassList.add(Class.forName(str));
         }
-        Reflections reflections = new Reflections();
+
         Set<Class<?>> classes = new HashSet<Class<?>>();
         Set<Class<?>> remoteInterfaces =  reflections.getTypesAnnotatedWith(Remote.class);
         for(Class<?> remoteInterface : remoteInterfaces){
