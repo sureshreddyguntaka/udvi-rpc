@@ -36,6 +36,8 @@ public class RPCClient {
 		return t;
 	}
 
+
+
 	public static  <T> T  createObjectProxy(ArrayList<InetSocketAddress> serverList, Class<T> clazz) {
 		T t = (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz},new ObjectProxy<T>(serverList, clazz));
 		return t;

@@ -49,12 +49,16 @@ public class DefaultHandler extends SimpleChannelInboundHandler<RPCContext> {
 
 		try{
 			Object[] args = req.getArgs();
-			Class[] argTypes = new Class[args.length];
-			String methodKey ="";
-			for(int i=0;i<args.length;i++){
-				argTypes[i] = args[i].getClass();
-				methodKey+=argTypes[i].getSimpleName();
+			Class[] argTypes = new Class[0];
+			if(args != null){
+				argTypes = new Class[args.length];
+				String methodKey ="";
+				for(int i=0;i<args.length;i++){
+					argTypes[i] = args[i].getClass();
+					methodKey+=argTypes[i].getSimpleName();
+				}
 			}
+
 	
 			Object obj= RPCServer.getObject(req.getObjName());
 			Class clazz= obj.getClass();

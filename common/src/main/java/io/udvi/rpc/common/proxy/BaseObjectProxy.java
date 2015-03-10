@@ -127,11 +127,14 @@ public class BaseObjectProxy<T> {
 			req.setFuncName(funcName);
 			req.setSerializer((char) RPCClient.getConfig().getInt("client.serializer"));
 			req.setArgs(args);
-			   
-			Class[] parameterTypes = new Class[args.length];
-			for(int i=0; i<args.length;i++){
-				parameterTypes[i] = args[i].getClass();
+			Class[] parameterTypes = new Class[0];
+			if(args != null){
+				parameterTypes = new Class[args.length];
+				for(int i=0; i<args.length;i++){
+					parameterTypes[i] = args[i].getClass();
+				}
 			}
+
 		   
 		    Method method = clazz.getMethod(funcName, parameterTypes);
 		    if( method.getReturnType().equals(Void.TYPE) && RPCType.ONEWAY == type){

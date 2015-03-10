@@ -1,5 +1,6 @@
 package io.udvi.rpc.example;
 
+
 import io.udvi.rpc.server.RPCServer;
 import org.reflections.Reflections;
 import org.springframework.context.ApplicationContext;
@@ -22,9 +23,11 @@ public class SpringHelloWorldServer {
     public static void main(String[] args) {
         ApplicationContext context =
                 new AnnotationConfigApplicationContext(SpringHelloWorldServer.class);
+
         RPCServer server = context.getBean(RPCServer.class);
         Reflections reflections = new Reflections();
         Set<Class<?>> classes =  reflections.getTypesAnnotatedWith(Component.class);
+
         for(Class<?> clazz : classes){
             System.out.println(clazz.getCanonicalName());
         }
@@ -33,6 +36,11 @@ public class SpringHelloWorldServer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+    /*@Bean
+    public Object getProxyBeans(){
+        return RPCClient.createObjectProxy("localhost", 9090, TestInterface.class);
+
+    }*/
 }
