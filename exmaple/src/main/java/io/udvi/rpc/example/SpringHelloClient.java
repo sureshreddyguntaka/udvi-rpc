@@ -2,6 +2,7 @@ package io.udvi.rpc.example;
 
 
 import io.udvi.rpc.client.annotation.EnableRpcClient;
+import io.udvi.rpc.example.obj.TestEntity;
 import io.udvi.rpc.example.obj.TestInterface;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,12 +22,8 @@ public class SpringHelloClient {
         System.out.println(test.thisIsAnotherMehtod("Suresh Reddy"));
         System.out.println(test.methodWithOutParams());
         System.out.println("invoking");
-        long t = System.currentTimeMillis();
-        for(int i=0; i<=1000000; i++){
-            test.methodWithOurReturnAndParams();
-        }
-        long total = (System.currentTimeMillis() - t);
-        System.out.println("total time costed:" + total	+ "|req/s=" + 100000  / (long) (total / 1000));
+        TestEntity te = test.getTestEntity();
+        System.out.println(te.getClass().getCanonicalName());
 
     }
 }

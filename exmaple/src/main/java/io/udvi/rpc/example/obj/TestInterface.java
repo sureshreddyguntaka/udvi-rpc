@@ -13,4 +13,6 @@ public interface TestInterface {
     public String methodWithOutParams();
 
     public void methodWithOurReturnAndParams();
+
+    public TestEntity getTestEntity();
 }

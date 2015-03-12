@@ -23,4 +23,18 @@ public class TestInterfaceImpl implements TestInterface {
 	public void methodWithOurReturnAndParams(){
 		System.out.println("This is even great");
 	}
+
+	@Override
+	public TestEntity getTestEntity() {
+		TestEntity te = null;
+		TestEntityExt tee = new TestEntityExt();
+		tee.setTestExt("testExt");
+		tee.setTest("test");
+		try {
+			te = (TestEntity)tee.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return te;
+	}
 }
